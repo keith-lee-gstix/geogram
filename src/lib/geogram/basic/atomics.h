@@ -13,7 +13,7 @@
  *  * Neither the name of the ALICE Project-Team nor the names of its
  *  contributors may be used to endorse or promote products derived from this
  *  software without specific prior written permission.
- * 
+ *
  *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  *  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -36,9 +36,9 @@
  *     http://www.loria.fr/~levy
  *
  *     ALICE Project
- *     LORIA, INRIA Lorraine, 
+ *     LORIA, INRIA Lorraine,
  *     Campus Scientifique, BP 239
- *     54506 VANDOEUVRE LES NANCY CEDEX 
+ *     54506 VANDOEUVRE LES NANCY CEDEX
  *     FRANCE
  *
  */
@@ -55,10 +55,12 @@
  */
 
 #ifdef GEO_OS_LINUX
-#  if defined(GEO_OS_EMSCRIPTEN) 
+#  if defined(GEO_OS_EMSCRIPTEN)
 #    define GEO_USE_DUMMY_ATOMICS
 #  elif defined(GEO_OS_RASPBERRY)
 #    define GEO_USE_ARM32_ATOMICS
+#  elif defined(GEO_OS_L4T)
+#    define GEO_USE_ANDROID_ATOMICS
 #  elif defined(GEO_OS_ANDROID)
 #    define GEO_USE_ANDROID_ATOMICS
 #  else
@@ -106,11 +108,11 @@ inline void memory_barrier_android() {
 }
 
 inline void wait_for_event_android() {
-    /* TODO */    
+    /* TODO */
 }
 
 inline void send_event_android() {
-    /* TODO */    
+    /* TODO */
 }
 
 #elif defined(GEO_USE_ARM32_ATOMICS)
@@ -222,7 +224,7 @@ inline void memory_barrier_arm32() {
 inline void wait_for_event_arm32() {
     __asm__ __volatile__ (
         "wfe \n"
-        : : : 
+        : : :
     );
 }
 
@@ -233,7 +235,7 @@ inline void send_event_arm32() {
     __asm__ __volatile__ (
         "dsb \n" // ensure completion of store operations
         "sev \n"
-        : : : 
+        : : :
     );
 }
 
@@ -350,4 +352,3 @@ inline void geo_pause() {
 #endif // GEO_OS_WINDOWS
 
 #endif
-

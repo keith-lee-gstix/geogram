@@ -99,7 +99,7 @@ namespace GEO {
             unlock_mutex_arm32(&x);
         }
 	
-#elif defined(GEO_OS_ANDROID)
+#elif defined(GEO_OS_ANDROID) || defined(GEO_OS_L4T)
 
         /** A lightweight synchronization structure. */
         typedef android_mutex_t spinlock;
@@ -398,7 +398,7 @@ namespace GEO {
             index_t size_;
         };
 	
-#elif defined(GEO_OS_ANDROID) 
+#elif defined(GEO_OS_ANDROID) || defined(GEO_OS_L4T)
 
         /**
          * \brief An array of light-weight synchronisation
